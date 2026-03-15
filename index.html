@@ -172,32 +172,37 @@
         <!-- Algorithm -->
         <h2 class="title is-3">Algorithm</h2>
         <div class="content">
-          <div style="background: #f5f5f5; border: 1px solid #dbdbdb; border-radius: 6px; padding: 1.5rem; overflow-x: auto;">
-            <p style="margin-bottom: 0.75rem;"><strong>Algorithm 1:</strong> Grounding Video Plans with World Models</p>
-<pre style="background: transparent; padding: 0; margin: 0; font-size: 0.9rem;"><code><strong>Require:</strong> initial state s₀ = (o₀, p₀); goal observation o_g;
-         video model G; world model (E_ϕ, f_ψ); MPC parameters (T, K);
-         ALM iteration and penalty parameters
-
- 1: Generate a video plan: τ_vid ~ G(·|o₀, o_g, c)
- 2: Encode video plan into latent space: z⁰:T_vid ← E_ϕ(τ_vid)
- 3: Initialize primal variables: Z ← z⁰:T_vid, A ← 0
- 4: <strong>for</strong> t = 0 to T−1 step K <strong>do</strong>
- 5:     Set initial latent state of trajectory: z_t ← E_ϕ(s_t)
- 6:     Initialize dual variables: λ ← 0, ρ ← ρ₀
- 7:     <strong>for</strong> k = 1 to O_ALM <strong>do</strong>
- 8:         <strong>for</strong> i = 1 to I_ALM <strong>do</strong>
- 9:             Video Guidance: L_vid(z_{t+1:T−1}, z^vid_{t+1:T−1})
-10:             Terminal Latent Goal: L_goal(z_T, z_g)
-11:             Dynamic Constraints: L^t_dyn(z_{t−H:t+1}, a_{t−H:t}; f_ψ)
-12:             Compute Augmented Lagrangian L_ρ (Eq. 4)
-13:             Primal update: (Z, A) via a gradient step on L_ρ
-14:         <strong>end for</strong>
-15:         Dual update: λ ← λ + ρ·L_dyn
-16:         Penalty update: ρ ← min(γρ, ρ_max)
-17:     <strong>end for</strong>
-18:     Execute a_{t:t+K} from A with sampling refinement
-19:     Update current state: s_{t+K} ← (o_{t+K}, p_{t+K})
-20: <strong>end for</strong></code></pre>
+          <div style="background: #f5f5f5; border: 1px solid #dbdbdb; border-radius: 6px; padding: 1.5rem 2rem; overflow-x: auto; max-width: 800px; margin: 0 auto;">
+            <p style="margin-bottom: 0.5rem; font-weight: bold; font-size: 1rem;">Algorithm 1: Grounding Video Plans with World Models</p>
+            <hr style="margin: 0.5rem 0; border-top: 1px solid #aaa;">
+            <div style="font-size: 0.95rem; line-height: 1.8;">
+              <p style="margin-bottom: 0.5rem;">
+                <strong>Require:</strong> initial state \(s_0 = (o_0, p_0)\); goal observation \(o_g\); video model \(\mathcal{G}\); world model \((E_\phi, f_\psi)\); MPC parameters \((T, K)\); ALM iteration and penalty parameters
+              </p>
+              <hr style="margin: 0.5rem 0; border-top: 1px solid #aaa;">
+              <table style="border: none; border-collapse: collapse; width: 100%;">
+                <tr><td style="border:none; padding: 2px 8px; white-space: nowrap; vertical-align: top; color: #888;">1:</td><td style="border:none; padding: 2px 0;">Generate a video plan: \(\tau_{\mathrm{vid}} \sim \mathcal{G}(\cdot \mid o_0, o_g, c)\)</td></tr>
+                <tr><td style="border:none; padding: 2px 8px; white-space: nowrap; vertical-align: top; color: #888;">2:</td><td style="border:none; padding: 2px 0;">Encode video plan into latent space: \(z^{\mathrm{vid}}_{0:T} \leftarrow E_\phi(\tau_{\mathrm{vid}})\)</td></tr>
+                <tr><td style="border:none; padding: 2px 8px; white-space: nowrap; vertical-align: top; color: #888;">3:</td><td style="border:none; padding: 2px 0;">Initialize primal variables: \(\mathcal{Z} \leftarrow z^{\mathrm{vid}}_{0:T}\), \(\mathcal{A} \leftarrow \mathbf{0}\)</td></tr>
+                <tr><td style="border:none; padding: 2px 8px; white-space: nowrap; vertical-align: top; color: #888;">4:</td><td style="border:none; padding: 2px 0;"><strong>for</strong> \(t = 0\) <strong>to</strong> \(T-1\) <strong>step</strong> \(K\) <strong>do</strong></td></tr>
+                <tr><td style="border:none; padding: 2px 8px; white-space: nowrap; vertical-align: top; color: #888;">5:</td><td style="border:none; padding: 2px 0 2px 20px;">Set initial latent state of trajectory: \(z_t \leftarrow E_\phi(s_t)\)</td></tr>
+                <tr><td style="border:none; padding: 2px 8px; white-space: nowrap; vertical-align: top; color: #888;">6:</td><td style="border:none; padding: 2px 0 2px 20px;">Initialize dual variables: \(\lambda \leftarrow \mathbf{0}\), \(\rho \leftarrow \rho_0\)</td></tr>
+                <tr><td style="border:none; padding: 2px 8px; white-space: nowrap; vertical-align: top; color: #888;">7:</td><td style="border:none; padding: 2px 0 2px 20px;"><strong>for</strong> \(k = 1\) <strong>to</strong> \(O_{\mathrm{ALM}}\) <strong>do</strong></td></tr>
+                <tr><td style="border:none; padding: 2px 8px; white-space: nowrap; vertical-align: top; color: #888;">8:</td><td style="border:none; padding: 2px 0 2px 40px;"><strong>for</strong> \(i = 1\) <strong>to</strong> \(I_{\mathrm{ALM}}\) <strong>do</strong></td></tr>
+                <tr><td style="border:none; padding: 2px 8px; white-space: nowrap; vertical-align: top; color: #888;">9:</td><td style="border:none; padding: 2px 0 2px 60px;">Video Guidance: \(\mathcal{L}_{\mathrm{vid}}(z_{t+1:T-1}, z^{\mathrm{vid}}_{t+1:T-1})\)</td></tr>
+                <tr><td style="border:none; padding: 2px 8px; white-space: nowrap; vertical-align: top; color: #888;">10:</td><td style="border:none; padding: 2px 0 2px 60px;">Terminal Latent Goal: \(\mathcal{L}_{\mathrm{goal}}(z_T, z_g)\)</td></tr>
+                <tr><td style="border:none; padding: 2px 8px; white-space: nowrap; vertical-align: top; color: #888;">11:</td><td style="border:none; padding: 2px 0 2px 60px;">Dynamic Constraints: \(\mathcal{L}_{\mathrm{dyn}}^{t}(z_{t-H:t+1}, a_{t-H:t}; f_\psi)\)</td></tr>
+                <tr><td style="border:none; padding: 2px 8px; white-space: nowrap; vertical-align: top; color: #888;">12:</td><td style="border:none; padding: 2px 0 2px 60px;">Compute Augmented Lagrangian \(\mathcal{L}_{\rho}\)</td></tr>
+                <tr><td style="border:none; padding: 2px 8px; white-space: nowrap; vertical-align: top; color: #888;">13:</td><td style="border:none; padding: 2px 0 2px 60px;">Primal update: \((\mathcal{Z}, \mathcal{A})\) via a gradient step on \(\mathcal{L}_{\rho}\)</td></tr>
+                <tr><td style="border:none; padding: 2px 8px; white-space: nowrap; vertical-align: top; color: #888;">14:</td><td style="border:none; padding: 2px 0 2px 40px;"><strong>end for</strong></td></tr>
+                <tr><td style="border:none; padding: 2px 8px; white-space: nowrap; vertical-align: top; color: #888;">15:</td><td style="border:none; padding: 2px 0 2px 20px;">Dual update: \(\lambda \leftarrow \lambda + \rho \, \mathcal{L}_{\mathrm{dyn}}\)</td></tr>
+                <tr><td style="border:none; padding: 2px 8px; white-space: nowrap; vertical-align: top; color: #888;">16:</td><td style="border:none; padding: 2px 0 2px 20px;">Penalty update: \(\rho \leftarrow \min(\gamma \rho, \rho_{\max})\)</td></tr>
+                <tr><td style="border:none; padding: 2px 8px; white-space: nowrap; vertical-align: top; color: #888;">17:</td><td style="border:none; padding: 2px 0 2px 20px;"><strong>end for</strong></td></tr>
+                <tr><td style="border:none; padding: 2px 8px; white-space: nowrap; vertical-align: top; color: #888;">18:</td><td style="border:none; padding: 2px 0 2px 20px;">Execute \(a_{t:t+K}\) from \(\mathcal{A}\) with sampling refinement</td></tr>
+                <tr><td style="border:none; padding: 2px 8px; white-space: nowrap; vertical-align: top; color: #888;">19:</td><td style="border:none; padding: 2px 0 2px 20px;">Update current state: \(s_{t+K} \leftarrow (o_{t+K}, p_{t+K})\)</td></tr>
+                <tr><td style="border:none; padding: 2px 8px; white-space: nowrap; vertical-align: top; color: #888;">20:</td><td style="border:none; padding: 2px 0;"><strong>end for</strong></td></tr>
+              </table>
+            </div>
           </div>
         </div>
       </div>
