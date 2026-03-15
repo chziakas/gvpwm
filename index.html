@@ -79,9 +79,9 @@
 </section>
 
 <!-- Teaser Figure -->
-<section class="hero teaser">
+<section class="hero teaser" style="padding-top: 0;">
   <div class="container is-max-widescreen">
-    <div class="hero-body">
+    <div class="hero-body" style="padding-top: 0;">
       <figure class="image">
         <img src="./static/images/figures/teaser_panel.jpg"
              alt="GVP-WM teaser panel">
@@ -130,7 +130,7 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">I2V-Generated Video Plans Often Violate Physics</h2>
+        <h2 class="title is-3">I2V-Generated Video Plans Violate Physics</h2>
         <div class="columns is-multiline">
           <div class="column is-one-fifth has-text-centered">
             <video autoplay controls muted loop playsinline style="width: 100%; border-radius: 4px;">
@@ -168,17 +168,54 @@
   </div>
 </section>
 
+<!-- GVP-WM Qualitative -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">GVP-WM Grounds I2V-Generated Plans via World Models</h2>
+        <p class="has-text-centered" style="margin-bottom: 1rem; font-size: 1.3rem;"><strong>Top:</strong> <strong style="color: #cc0000;">I2V-Generated Plan</strong> &nbsp;&mdash;&nbsp; <strong>Bottom:</strong> <strong style="color: #009900;">GVP-WM Grounding</strong></p>
+
+        <div class="columns is-multiline" style="margin-top: 0.5rem;">
+          <div class="column is-half has-text-centered">
+            <img src="./static/images/figures/rollouts/X_succ_2row.jpg" alt="Morphological Drift (Success)" style="width: 100%;">
+            <p style="margin-top: 0.25rem;">(a) Morphological Drift (Success)</p>
+          </div>
+          <div class="column is-half has-text-centered">
+            <img src="./static/images/figures/rollouts/X_fail_2row.jpg" alt="Morphological Drift (Failure)" style="width: 100%;">
+            <p style="margin-top: 0.25rem;">(b) Morphological Drift (Failure)</p>
+          </div>
+          <div class="column is-half has-text-centered">
+            <img src="./static/images/figures/rollouts/physics_2row.jpg" alt="Rigid-Object Physics Violation (Failure)" style="width: 100%;">
+            <p style="margin-top: 0.25rem;">(c) Rigid-Object Physics Violation (Failure)</p>
+          </div>
+          <div class="column is-half has-text-centered">
+            <img src="./static/images/figures/rollouts/lora_2row.jpg" alt="Domain-Adapted Video Guidance (Success)" style="width: 100%;">
+            <p style="margin-top: 0.25rem;">(d) Domain-Adapted Video Guidance (Success)</p>
+          </div>
+          <div class="column is-half has-text-centered">
+            <img src="./static/images/figures/rollouts/wall_base_failure_2row.jpg" alt="Spatial Bilocation (Failure)" style="width: 100%;">
+            <p style="margin-top: 0.25rem;">(e) Spatial Bilocation (Failure)</p>
+          </div>
+          <div class="column is-half has-text-centered">
+            <img src="./static/images/figures/rollouts/wall_base_success_2row.jpg" alt="Spatial Bilocation (Success)" style="width: 100%;">
+            <p style="margin-top: 0.25rem;">(f) Spatial Bilocation (Success)</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Method -->
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">GVP-WM: Grounding Video Plans with World Models</h2>
+        <h2 class="title is-3">GVP-WM Projects Video Plans onto the Manifold of Feasible Trajectories in World Models via Latent Collocation</h2>
         <div class="content has-text-justified">
           <p>
-            Our method first generates a video plan from the initial and
-            goal observations and then grounds it into a feasible action
-            sequence using trajectory optimization in latent space.
+            GVP-WM jointly optimizes latent states and actions under world-model dynamics, while preserving semantic alignment with the video plan.
           </p>
         </div>
 
@@ -260,7 +297,7 @@
         </div>
 
         <!-- Algorithm -->
-        <h2 class="title is-3">GVP-WM Algorithm</h2>
+        <h2 class="title is-3">GVP-WM jointly Optimizes Latent States and Actions under World-model Dynamics while Preserving Video Alignment</h2>
         <div class="content">
           <div style="background: #f5f5f5; border: 1px solid #dbdbdb; border-radius: 6px; padding: 1.5rem 2rem; overflow-x: auto; max-width: 800px; margin: 0 auto;">
             <hr style="margin: 0.5rem 0; border-top: 1px solid #aaa;">
@@ -374,50 +411,6 @@
           </div>
         </div>
 
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Qualitative Analysis -->
-<section class="section">
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Qualitative Analysis of I2V-Generated Video Plans</h2>
-
-        <div class="columns is-multiline" style="margin-top: 1rem;">
-          <div class="column is-half has-text-centered">
-            <img src="./static/images/figures/rollouts/X_succ_2row.jpg" alt="Morphological Drift (Success)" style="width: 100%;">
-            <p style="margin-top: 0.25rem;">(a) Morphological Drift (Success)</p>
-          </div>
-          <div class="column is-half has-text-centered">
-            <img src="./static/images/figures/rollouts/X_fail_2row.jpg" alt="Morphological Drift (Failure)" style="width: 100%;">
-            <p style="margin-top: 0.25rem;">(b) Morphological Drift (Failure)</p>
-          </div>
-          <div class="column is-half has-text-centered">
-            <img src="./static/images/figures/rollouts/physics_2row.jpg" alt="Rigid-Object Physics Violation (Failure)" style="width: 100%;">
-            <p style="margin-top: 0.25rem;">(c) Rigid-Object Physics Violation (Failure)</p>
-          </div>
-          <div class="column is-half has-text-centered">
-            <img src="./static/images/figures/rollouts/lora_2row.jpg" alt="Domain-Adapted Video Guidance (Success)" style="width: 100%;">
-            <p style="margin-top: 0.25rem;">(d) Domain-Adapted Video Guidance (Success)</p>
-          </div>
-          <div class="column is-half has-text-centered">
-            <img src="./static/images/figures/rollouts/wall_base_failure_2row.jpg" alt="Spatial Bilocation (Failure)" style="width: 100%;">
-            <p style="margin-top: 0.25rem;">(e) Spatial Bilocation (Failure)</p>
-          </div>
-          <div class="column is-half has-text-centered">
-            <img src="./static/images/figures/rollouts/wall_base_success_2row.jpg" alt="Spatial Bilocation (Success)" style="width: 100%;">
-            <p style="margin-top: 0.25rem;">(f) Spatial Bilocation (Success)</p>
-          </div>
-        </div>
-
-        <div class="content has-text-justified" style="margin-top: 1rem;">
-          <p>
-            Qualitative comparison of video-generated plans (top) and GVP-WM executions (bottom). In Push-T, zero-shot video plans (WAN-0S) exhibit physical inconsistencies, including morphological drift (a&ndash;b) and rigid-object physics violations (c), while domain-adapted video guidance (WAN-FT) produces physically consistent plans (d). In Wall, zero-shot video plans exhibit spatial bilocation (e&ndash;f).
-          </p>
-        </div>
       </div>
     </div>
   </div>
