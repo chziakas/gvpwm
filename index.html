@@ -389,6 +389,50 @@
   </div>
 </section>
 
+<!-- Qualitative Analysis -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Qualitative Analysis of I2V-Generated Video Plans</h2>
+
+        <div class="columns is-multiline" style="margin-top: 1rem;">
+          <div class="column is-half has-text-centered">
+            <img src="./static/images/figures/rollouts/X_succ_2row.jpg" alt="Morphological Drift (Success)" style="width: 100%;">
+            <p style="margin-top: 0.25rem;">(a) Morphological Drift (Success)</p>
+          </div>
+          <div class="column is-half has-text-centered">
+            <img src="./static/images/figures/rollouts/X_fail_2row.jpg" alt="Morphological Drift (Failure)" style="width: 100%;">
+            <p style="margin-top: 0.25rem;">(b) Morphological Drift (Failure)</p>
+          </div>
+          <div class="column is-half has-text-centered">
+            <img src="./static/images/figures/rollouts/physics_2row.jpg" alt="Rigid-Object Physics Violation (Failure)" style="width: 100%;">
+            <p style="margin-top: 0.25rem;">(c) Rigid-Object Physics Violation (Failure)</p>
+          </div>
+          <div class="column is-half has-text-centered">
+            <img src="./static/images/figures/rollouts/lora_2row.jpg" alt="Domain-Adapted Video Guidance (Success)" style="width: 100%;">
+            <p style="margin-top: 0.25rem;">(d) Domain-Adapted Video Guidance (Success)</p>
+          </div>
+          <div class="column is-half has-text-centered">
+            <img src="./static/images/figures/rollouts/wall_base_failure_2row.jpg" alt="Spatial Bilocation (Failure)" style="width: 100%;">
+            <p style="margin-top: 0.25rem;">(e) Spatial Bilocation (Failure)</p>
+          </div>
+          <div class="column is-half has-text-centered">
+            <img src="./static/images/figures/rollouts/wall_base_success_2row.jpg" alt="Spatial Bilocation (Success)" style="width: 100%;">
+            <p style="margin-top: 0.25rem;">(f) Spatial Bilocation (Success)</p>
+          </div>
+        </div>
+
+        <div class="content has-text-justified" style="margin-top: 1rem;">
+          <p>
+            Qualitative comparison of video-generated plans (top) and GVP-WM executions (bottom). In Push-T, zero-shot video plans (WAN-0S) exhibit physical inconsistencies, including morphological drift (a&ndash;b) and rigid-object physics violations (c), while domain-adapted video guidance (WAN-FT) produces physically consistent plans (d). In Wall, zero-shot video plans exhibit spatial bilocation (e&ndash;f).
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- BibTeX -->
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
