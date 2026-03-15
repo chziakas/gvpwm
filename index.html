@@ -54,15 +54,6 @@
           <div class="column has-text-centered">
             <div class="publication-links">
               <span class="link-block">
-                <a href="#"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fas fa-file-pdf"></i>
-                  </span>
-                  <span>Paper</span>
-                </a>
-              </span>
-              <span class="link-block">
                 <a href="https://arxiv.org/abs/2602.01960"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
@@ -72,8 +63,7 @@
                 </a>
               </span>
               <span class="link-block">
-                <a href="https://github.com/chziakas/gvpwm"
-                   class="external-link button is-normal is-rounded is-dark">
+                <a class="external-link button is-normal is-rounded is-dark" style="pointer-events: none; cursor: default;">
                   <span class="icon">
                       <i class="fab fa-github"></i>
                   </span>
@@ -213,7 +203,7 @@
             We map the generated video plan into the latent state space of the action-conditioned world model using its underlying visual encoder, yielding a sequence of latent states \(z^{\mathrm{vid}}_{0:T}\).
           </p>
           <p>
-            In addition, we employ a semantic alignment loss between the optimized latent trajectory and the video plan, which is equivalent to cosine similarity between their latent states. Specifically, the video alignment loss is defined as
+            In addition, we employ a semantic alignment loss between the optimized latent trajectory and the video plan. Specifically, the video alignment loss is defined as
           </p>
 
           \[
@@ -221,7 +211,7 @@
           \]
 
           <p>
-            where both optimized and video latent states are projected onto the unit \(\ell_2\) hypersphere by \(\phi(z) = z / \|z\|_2\).
+            where both optimized and video latent states are projected onto the unit \(\ell_2\) hypersphere by \(\phi(z) = z / \|z\|_2\). This loss penalizes angular deviation between latent embeddings while remaining invariant to their magnitude.
           </p>
         </div>
 
