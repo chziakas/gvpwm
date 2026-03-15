@@ -135,23 +135,60 @@
   </div>
 </section>
 
+<!-- Zero-Shot Video Plans -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">I2V-Generated Video Plans Often Violate Physics</h2>
+        <div class="columns is-multiline">
+          <div class="column is-one-fifth has-text-centered">
+            <video autoplay controls muted loop playsinline style="width: 100%; border-radius: 4px;">
+              <source src="./static/images/figures/videos/spatial_bilocation.mp4" type="video/mp4">
+            </video>
+            <p style="margin-top: 0.5rem;">Spatial Bilocation</p>
+          </div>
+          <div class="column is-one-fifth has-text-centered">
+            <video autoplay controls muted loop playsinline style="width: 100%; border-radius: 4px;">
+              <source src="./static/images/figures/videos/object_teleportation.mp4" type="video/mp4">
+            </video>
+            <p style="margin-top: 0.5rem;">Object Teleportation</p>
+          </div>
+          <div class="column is-one-fifth has-text-centered">
+            <video autoplay controls muted loop playsinline style="width: 100%; border-radius: 4px;">
+              <source src="./static/images/figures/videos/physics_violation.mp4" type="video/mp4">
+            </video>
+            <p style="margin-top: 0.5rem;">Rigid-Body Violation</p>
+          </div>
+          <div class="column is-one-fifth has-text-centered">
+            <video autoplay controls muted loop playsinline style="width: 100%; border-radius: 4px;">
+              <source src="./static/images/figures/videos/object_disintegration.mp4" type="video/mp4">
+            </video>
+            <p style="margin-top: 0.5rem;">Object Disintegration</p>
+          </div>
+          <div class="column is-one-fifth has-text-centered">
+            <video autoplay controls muted loop playsinline style="width: 100%; border-radius: 4px;">
+              <source src="./static/images/figures/videos/morphologic_drift.mp4" type="video/mp4">
+            </video>
+            <p style="margin-top: 0.5rem;">Morphologic Drift</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- Method -->
 <section class="section">
   <div class="container is-max-desktop">
     <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3">Grounding Video Plans with World Models</h2>
+        <h2 class="title is-3">GVP-WM: Grounding Video Plans with World Models</h2>
         <div class="content has-text-justified">
           <p>
             Our method first generates a video plan from the initial and
             goal observations and then grounds it into a feasible action
-            sequence using trajectory optimization in latent space. We formulate grounding video plans into feasible action
-            sequences as a video-guided direct collocation problem. In
-            direct collocation, both the latent states \(\mathbf{Z} = z_0, \ldots, z_T\) and
-            the actions \(\mathbf{A} = a_0, \ldots, a_{T-1}\) are treated as decision variables. Our goal is to solve for a
-            trajectory \((\mathbf{Z}^*, \mathbf{A}^*)\) that minimizes the divergence between
-            the latent states of the optimized trajectory and the video
-            plan \(z^{\mathrm{vid}}\), while satisfying the world model dynamics \(f_\psi\).
+            sequence using trajectory optimization in latent space.
           </p>
         </div>
 
@@ -162,18 +199,80 @@
                    alt="Overview of GVP-WM" style="display: block; margin: 0 auto; max-width: 75%;">
             </figure>
             <p class="has-text-centered" style="margin-top: 0.5rem;">
-              Overview of GVP-WM. A video plan, which may contain physically infeasible transitions (e.g., motion blur or object teleportation), is encoded into a sequence of latent states \(\{z^{\mathrm{vid}}_{t:T-1}\}\) using a pretrained visual encoder \(E_\phi\) of the world model. Video-guided latent collocation optimizes a latent trajectory \(\{z_{t+1:T}\}\) and corresponding actions \(\{a_{t:T-1}\}\) by minimizing an augmented Lagrangian objective, which balances video alignment (\(L_{\mathrm{vid}}\)), terminal goal reaching (\(L_{\mathrm{goal}}\)), and world-model dynamics (\(L_{\mathrm{dyn}}\)). The actions from the optimal latent trajectory satisfying the world-model dynamics constraints are executed using model predictive control.
+              Overview of GVP-WM. A video plan, which may contain physically infeasible transitions (e.g., motion blur or object teleportation), is encoded into a sequence of latent states \(\{z^{\mathrm{vid}}_{t:T-1}\}\) using a pretrained visual encoder \(E_\phi\) of the world model. Video-guided latent collocation optimizes a latent trajectory \(\{z_{t+1:T}\}\) and corresponding actions \(\{a_{t:T-1}\}\) by minimizing an augmented Lagrangian objective, which balances video alignment (\(\mathcal{L}_{\mathrm{vid}}\)), terminal goal reaching (\(\mathcal{L}_{\mathrm{goal}}\)), and world-model dynamics (\(\mathcal{L}_{\mathrm{dyn}}\)). The actions from the optimal latent trajectory satisfying the world-model dynamics constraints are executed using model predictive control.
             </p>
           </div>
         </div>
 
         <br/>
 
+        <h3 class="title is-4">Video Plan Guidance</h3>
+        <div class="content has-text-justified">
+          <p>
+            A video plan \(\tau_{\mathrm{vid}}\) is a sequence of visual observations generated by a conditional video generative model \(\mathcal{G}\) that provides temporally ordered visual foresight for completing a task. \(\mathcal{G}\) can be instantiated using an image-to-video (I2V) diffusion-based video model that produces temporally coherent visual transitions between the start and goal observations.
+            We map the generated video plan into the latent state space of the action-conditioned world model using its underlying visual encoder, yielding a sequence of latent states \(z^{\mathrm{vid}}_{0:T}\).
+          </p>
+          <p>
+            In addition, we employ a semantic alignment loss between the optimized latent trajectory and the video plan, which is equivalent to cosine similarity between their latent states. Specifically, the video alignment loss is defined as
+          </p>
+
+          \[
+          \mathcal{L}_{\mathrm{vid}}(z_t, z^{\mathrm{vid}}_t) = \left\| \phi(z_t) - \phi(z^{\mathrm{vid}}_t) \right\|^2,
+          \]
+
+          <p>
+            where both optimized and video latent states are projected onto the unit \(\ell_2\) hypersphere by \(\phi(z) = z / \|z\|_2\).
+          </p>
+        </div>
+
+        <h3 class="title is-4">Video-Guided Latent Collocation</h3>
+        <div class="content has-text-justified">
+          <p>
+            We formulate grounding video plans into feasible action
+            sequences as a video-guided direct collocation problem. In
+            direct collocation, both the latent states \(\mathcal{Z} = z_0, \ldots, z_T\) and
+            the actions \(\mathcal{A} = a_0, \ldots, a_{T-1}\) are treated as decision variables. Our goal is to solve for a
+            trajectory \((\mathcal{Z}^*, \mathcal{A}^*)\) that minimizes the divergence between
+            the latent states of the optimized trajectory and the video
+            plan \(z^{\mathrm{vid}}\), while satisfying the world model dynamics \(f_\psi\), leading to the following constrained optimization problem:
+          </p>
+
+          \[
+          \begin{aligned}
+          \min_{\mathcal{Z}, \mathcal{A}} \quad &
+          \lambda_{\text{v}} \sum_{t=1}^{T-1} \mathcal{L}_{\text{vid}}(z_t, z^{\text{vid}}_t) + \lambda_{\text{g}} \mathcal{L}_{\text{goal}}(z_T, z_g)
+          + \lambda_{\text{r}} \sum_{t=0}^{T-1} \| a_t \|^2 \\
+          \text{s.t.} \quad &
+          z_{t+1} = f_\psi(z_{t-H:t}, a_{t-H:t}), \quad \forall t \in \{0, \ldots, T-1\}, \\
+          & a_{\min} \preceq a_t \preceq a_{\max}, \quad \forall t \in \{0, \ldots, T-1\}.
+          \end{aligned}
+          \]
+
+          <p>
+            To efficiently solve the non-linear constrained optimization problem, we employ the Augmented Lagrangian Method (ALM). The loss is defined as:
+          </p>
+
+          \[
+          \mathcal{L}_\rho(\mathcal{Z}, \mathcal{A}, \Lambda) = \tilde{C}(\mathcal{Z}, \mathcal{A}) + \sum_{t=0}^{T-1} \left(\lambda_t^\top \mathcal{L}_{\mathrm{dyn}}^{t} + \frac{\rho}{2} \| \mathcal{L}_{\mathrm{dyn}}^{t} \|^2 \right),
+          \]
+
+          <p>
+            where \(\tilde{C}\) denotes the latent cost objective. \(\Lambda = \{\lambda_0, \ldots, \lambda_{T-1}\}\) are the Lagrange multipliers, and \(\rho > 0\) is a scalar penalty parameter. The term \(\mathcal{L}_{\mathrm{dyn}}^{t}\) corresponds to the dynamics constraint violation at timestep \(t\), defined as:
+          </p>
+
+          \[
+          \mathcal{L}_{\mathrm{dyn}}^{t}(\mathcal{Z}, \mathcal{A}; f_\psi) = z_{t+1} - f_\psi(z_{t-H:t}, a_{t-H:t}).
+          \]
+
+          <p>
+            Optimization proceeds using a standard primal&ndash;dual approach, alternating between gradient-based updates of the primal variables \((\mathcal{Z}, \mathcal{A})\) and the dual variables \(\Lambda\). In particular, we perform \(I_{\mathrm{ALM}}\) inner (primal) iterations per outer ALM step, updating the Lagrange multipliers and increasing the penalty parameter after each outer iteration.
+          </p>
+        </div>
+
         <!-- Algorithm -->
-        <h2 class="title is-3">Algorithm</h2>
+        <h2 class="title is-3">GVP-WM Algorithm</h2>
         <div class="content">
           <div style="background: #f5f5f5; border: 1px solid #dbdbdb; border-radius: 6px; padding: 1.5rem 2rem; overflow-x: auto; max-width: 800px; margin: 0 auto;">
-            <p style="margin-bottom: 0.5rem; font-weight: bold; font-size: 1rem;">Algorithm 1: Grounding Video Plans with World Models</p>
             <hr style="margin: 0.5rem 0; border-top: 1px solid #aaa;">
             <div style="font-size: 0.95rem; line-height: 1.8;">
               <p style="margin-bottom: 0.5rem;">
