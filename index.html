@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="GVP-WM project page.">
-  <meta name="keywords" content="GVP-WM">
+        content="Grounding Video Plans with World Models (GVP-WM)">
+  <meta name="keywords" content="GVP-WM, Video Planning, World Models, Trajectory Optimization, Robot Planning">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GVP-WM</title>
+  <title>GVP-WM: Grounding Video Plans with World Models</title>
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
@@ -20,6 +20,8 @@
   <link rel="stylesheet" href="./static/css/index.css">
   <link rel="icon" href="./static/images/favicon.svg">
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
   <script src="./static/js/bulma-carousel.min.js"></script>
@@ -28,49 +30,29 @@
 </head>
 <body>
 
-<nav class="navbar" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-      <span aria-hidden="true"></span>
-    </a>
-  </div>
-  <div class="navbar-menu">
-    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      <a class="navbar-item" href="https://github.com/chziakas">
-      <span class="icon">
-          <i class="fas fa-home"></i>
-      </span>
-      </a>
-    </div>
-
-  </div>
-</nav>
-
-
 <section class="hero">
   <div class="hero-body">
-    <div class="container is-max-desktop">
+    <div class="container is-max-widescreen">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">GVP-WM</h1>
+          <h1 class="title is-1 publication-title">Grounding Video Plans with World Models</h1>
           <div class="is-size-5 publication-authors">
-            <!-- TODO: Replace with your authors -->
             <span class="author-block">
-              <a href="#">Author One</a><sup>1</sup>,</span>
+              <a href="https://chziakas.github.io/">Christos Ziakas</a><sup>1</sup>,</span>
             <span class="author-block">
-              <a href="#">Author Two</a><sup>1</sup></span>
+              <a href="https://amirbar.net">Amir Bar</a><sup>2</sup>,</span>
+            <span class="author-block">
+              <a href="https://www.imperial.ac.uk/people/a.russo">Alessandra Russo</a><sup>1</sup>
+            </span>
           </div>
 
           <div class="is-size-5 publication-authors">
-            <!-- TODO: Replace with your affiliations -->
-            <span class="author-block"><sup>1</sup>Your Institution</span>
+            <span class="author-block"><sup>1</sup>Imperial College London,</span>
+            <span class="author-block"><sup>2</sup>UC Berkeley</span>
           </div>
 
           <div class="column has-text-centered">
             <div class="publication-links">
-              <!-- TODO: Update URLs when available -->
               <span class="link-block">
                 <a href="#"
                    class="external-link button is-normal is-rounded is-dark">
@@ -90,25 +72,15 @@
                 </a>
               </span>
               <span class="link-block">
-                <a href="#"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-youtube"></i>
-                  </span>
-                  <span>Video</span>
-                </a>
-              </span>
-              <span class="link-block">
                 <a href="https://github.com/chziakas/gvpwm"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
                       <i class="fab fa-github"></i>
                   </span>
                   <span>Code</span>
-                  </a>
+                </a>
               </span>
             </div>
-
           </div>
         </div>
       </div>
@@ -116,269 +88,224 @@
   </div>
 </section>
 
+<!-- Teaser Figure -->
 <section class="hero teaser">
-  <div class="container is-max-desktop">
+  <div class="container is-max-widescreen">
     <div class="hero-body">
-      <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/teaser.mp4"
-                type="video/mp4">
-      </video>
-      <h2 class="subtitle has-text-centered">
-        <!-- TODO: Replace with your teaser caption -->
-        GVP-WM teaser caption goes here.
+      <figure class="image">
+        <img src="./static/images/figures/teaser_panel.jpg"
+             alt="GVP-WM teaser panel">
+      </figure>
+      <h2 class="subtitle has-text-centered" style="margin-top: 1rem;">
+        GVP-WM grounds video-generated plans into feasible action sequences
+        using a pre-trained action-conditioned world model via video-guided latent collocation.
       </h2>
     </div>
   </div>
 </section>
 
-
-<section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-steve">
-          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/steve.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-chair-tp">
-          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/chair-tp.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-shiba">
-          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/shiba.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-fullbody">
-          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/fullbody.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-blueshirt">
-          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/blueshirt.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-mask">
-          <video poster="" id="mask" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/mask.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-coffee">
-          <video poster="" id="coffee" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/coffee.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-toby">
-          <video poster="" id="toby" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/toby2.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
+<!-- Abstract -->
 <section class="section">
   <div class="container is-max-desktop">
-    <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
-          <!-- TODO: Replace with your abstract -->
           <p>
-            Your abstract goes here.
+            Large-scale video generative models have shown
+            emerging capabilities as zero-shot visual planners,
+            yet video-generated plans often violate temporal
+            consistency and physical constraints, leading to
+            failures when mapped to executable actions. To
+            this end, we propose Grounding Video Plans with
+            World Models (GVP-WM), a planning method
+            that grounds video-generated plans into feasible action sequences using a pre-trained action-conditioned
+            world model. At test-time, GVP-WM first generates a video plan from initial and
+            goal observations, then projects the video guidance onto the manifold of dynamically feasible
+            latent trajectories via video-guided latent collocation. In particular, we formulate grounding as a
+            goal-conditioned latent-space trajectory optimization problem that jointly optimizes latent states
+            and actions under world-model dynamics, while
+            preserving semantic alignment with the video-generated plan. Empirically, GVP-WM recovers
+            feasible long-horizon plans from zero-shot image-to-video&ndash;generated and motion-blurred videos
+            that violate physical constraints, across navigation and manipulation simulation tasks.
           </p>
         </div>
       </div>
     </div>
-    <!--/ Abstract. -->
-
-    <!-- Paper video. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Video</h2>
-        <div class="publication-video">
-          <!-- TODO: Replace with your YouTube video embed URL -->
-          <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID?rel=0&amp;showinfo=0"
-                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
-      </div>
-    </div>
-    <!--/ Paper video. -->
   </div>
 </section>
 
-
+<!-- Method -->
 <section class="section">
   <div class="container is-max-desktop">
-
     <div class="columns is-centered">
-
-      <!-- Visual Effects. -->
-      <div class="column">
-        <div class="content">
-          <h2 class="title is-3">Visual Effects</h2>
+      <div class="column is-full-width">
+        <h2 class="title is-3">Grounding Video Plans with World Models</h2>
+        <div class="content has-text-justified">
           <p>
-            Using <i>nerfies</i> you can create fun visual effects. This Dolly zoom effect
-            would be impossible without nerfies since it would require going through a wall.
+            Our method first generates a video plan from the initial and
+            goal observations and then grounds it into a feasible action
+            sequence using trajectory optimization in latent space. We formulate grounding video plans into feasible action
+            sequences as a video-guided direct collocation problem. In
+            direct collocation, both the latent states \(\mathbf{Z} = z_0, \ldots, z_T\) and
+            the actions \(\mathbf{A} = a_0, \ldots, a_{T-1}\) are treated as decision variables. Our goal is to solve for a
+            trajectory \((\mathbf{Z}^*, \mathbf{A}^*)\) that minimizes the divergence between
+            the latent states of the optimized trajectory and the video
+            plan \(z^{\mathrm{vid}}\), while satisfying the world model dynamics \(f_\psi\).
           </p>
-          <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/dollyzoom-stacked.mp4"
-                    type="video/mp4">
-          </video>
         </div>
-      </div>
-      <!--/ Visual Effects. -->
 
-      <!-- Matting. -->
-      <div class="column">
-        <h2 class="title is-3">Matting</h2>
-        <div class="columns is-centered">
-          <div class="column content">
-            <p>
-              As a byproduct of our method, we can also solve the matting problem by ignoring
-              samples that fall outside of a bounding box during rendering.
+        <div class="columns is-centered has-text-centered">
+          <div class="column">
+            <figure class="image">
+              <img src="./static/images/figures/main_diagram_final.jpg"
+                   alt="Overview of GVP-WM" style="display: block; margin: 0 auto; max-width: 75%;">
+            </figure>
+            <p class="has-text-centered" style="margin-top: 0.5rem;">
+              Overview of GVP-WM. A video plan, which may contain physically infeasible transitions (e.g., motion blur or object teleportation), is encoded into a sequence of latent states \(\{z^{\mathrm{vid}}_{t:T-1}\}\) using a pretrained visual encoder \(E_\phi\) of the world model. Video-guided latent collocation optimizes a latent trajectory \(\{z_{t+1:T}\}\) and corresponding actions \(\{a_{t:T-1}\}\) by minimizing an augmented Lagrangian objective, which balances video alignment (\(L_{\mathrm{vid}}\)), terminal goal reaching (\(L_{\mathrm{goal}}\)), and world-model dynamics (\(L_{\mathrm{dyn}}\)). The actions from the optimal latent trajectory satisfying the world-model dynamics constraints are executed using model predictive control.
             </p>
-            <video id="matting-video" controls playsinline height="100%">
-              <source src="./static/videos/matting.mp4"
-                      type="video/mp4">
-            </video>
-          </div>
-
-        </div>
-      </div>
-    </div>
-    <!--/ Matting. -->
-
-    <!-- Animation. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Animation</h2>
-
-        <!-- Interpolating. -->
-        <h3 class="title is-4">Interpolating states</h3>
-        <div class="content has-text-justified">
-          <p>
-            We can also animate the scene by interpolating the deformation latent codes of two input
-            frames. Use the slider here to linearly interpolate between the left frame and the right
-            frame.
-          </p>
-        </div>
-        <div class="columns is-vcentered interpolation-panel">
-          <div class="column is-3 has-text-centered">
-            <img src="./static/images/interpolate_start.jpg"
-                 class="interpolation-image"
-                 alt="Interpolate start reference image."/>
-            <p>Start Frame</p>
-          </div>
-          <div class="column interpolation-video-column">
-            <div id="interpolation-image-wrapper">
-              Loading...
-            </div>
-            <input class="slider is-fullwidth is-large is-info"
-                   id="interpolation-slider"
-                   step="1" min="0" max="100" value="0" type="range">
-          </div>
-          <div class="column is-3 has-text-centered">
-            <img src="./static/images/interpolate_end.jpg"
-                 class="interpolation-image"
-                 alt="Interpolation end reference image."/>
-            <p class="is-bold">End Frame</p>
           </div>
         </div>
+
         <br/>
-        <!--/ Interpolating. -->
 
-        <!-- Re-rendering. -->
-        <h3 class="title is-4">Re-rendering the input video</h3>
-        <div class="content has-text-justified">
-          <p>
-            Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel
-            viewpoint such as a stabilized camera by playing back the training deformations.
-          </p>
-        </div>
-        <div class="content has-text-centered">
-          <video id="replay-video"
-                 controls
-                 muted
-                 preload
-                 playsinline
-                 width="75%">
-            <source src="./static/videos/replay.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <!--/ Re-rendering. -->
+        <!-- Algorithm -->
+        <h2 class="title is-3">Algorithm</h2>
+        <div class="content">
+          <div style="background: #f5f5f5; border: 1px solid #dbdbdb; border-radius: 6px; padding: 1.5rem; overflow-x: auto;">
+            <p style="margin-bottom: 0.75rem;"><strong>Algorithm 1:</strong> Grounding Video Plans with World Models</p>
+<pre style="background: transparent; padding: 0; margin: 0; font-size: 0.9rem;"><code><strong>Require:</strong> initial state s₀ = (o₀, p₀); goal observation o_g;
+         video model G; world model (E_ϕ, f_ψ); MPC parameters (T, K);
+         ALM iteration and penalty parameters
 
-      </div>
-    </div>
-    <!--/ Animation. -->
-
-
-    <!-- Concurrent Work. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Related Links</h2>
-
-        <div class="content has-text-justified">
-          <!-- TODO: Replace with your related links -->
-          <p>
-            Related work links go here.
-          </p>
+ 1: Generate a video plan: τ_vid ~ G(·|o₀, o_g, c)
+ 2: Encode video plan into latent space: z⁰:T_vid ← E_ϕ(τ_vid)
+ 3: Initialize primal variables: Z ← z⁰:T_vid, A ← 0
+ 4: <strong>for</strong> t = 0 to T−1 step K <strong>do</strong>
+ 5:     Set initial latent state of trajectory: z_t ← E_ϕ(s_t)
+ 6:     Initialize dual variables: λ ← 0, ρ ← ρ₀
+ 7:     <strong>for</strong> k = 1 to O_ALM <strong>do</strong>
+ 8:         <strong>for</strong> i = 1 to I_ALM <strong>do</strong>
+ 9:             Video Guidance: L_vid(z_{t+1:T−1}, z^vid_{t+1:T−1})
+10:             Terminal Latent Goal: L_goal(z_T, z_g)
+11:             Dynamic Constraints: L^t_dyn(z_{t−H:t+1}, a_{t−H:t}; f_ψ)
+12:             Compute Augmented Lagrangian L_ρ (Eq. 4)
+13:             Primal update: (Z, A) via a gradient step on L_ρ
+14:         <strong>end for</strong>
+15:         Dual update: λ ← λ + ρ·L_dyn
+16:         Penalty update: ρ ← min(γρ, ρ_max)
+17:     <strong>end for</strong>
+18:     Execute a_{t:t+K} from A with sampling refinement
+19:     Update current state: s_{t+K} ← (o_{t+K}, p_{t+K})
+20: <strong>end for</strong></code></pre>
+          </div>
         </div>
       </div>
     </div>
-    <!--/ Concurrent Work. -->
-
   </div>
 </section>
 
+<!-- Results -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
 
+        <h2 class="title is-3">Grounding I2V-Generated Video Plans</h2>
+        <div class="content">
+          <p class="has-text-centered" style="margin-bottom: 0.5rem;">Table 1. Success Rate comparison of methods on PushT and Wall for planning horizons T. WAN-0S: zero-shot; WAN-FT: domain-adapted; ORACLE: expert (upper bound).</p>
+          <div style="overflow-x: auto;">
+            <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+              <thead>
+                <tr>
+                  <th rowspan="2">Method</th>
+                  <th colspan="3" class="has-text-centered">PushT</th>
+                  <th colspan="2" class="has-text-centered">Wall</th>
+                </tr>
+                <tr>
+                  <th>T=25</th>
+                  <th>T=50</th>
+                  <th>T=80</th>
+                  <th>T=25</th>
+                  <th>T=50</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>MPC-CEM</td><td>0.74</td><td>0.28</td><td>0.06</td><td>0.92</td><td>0.74</td></tr>
+                <tr><td>MPC-GD</td><td>0.32</td><td>0.04</td><td>0.00</td><td>0.04</td><td>0.04</td></tr>
+                <tr><td>UniPi (WAN-0S)</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.30</td><td>0.14</td></tr>
+                <tr><td>UniPi (WAN-FT)</td><td>0.10</td><td>0.00</td><td>0.00</td><td>0.40</td><td>0.18</td></tr>
+                <tr><td>UniPi (ORACLE)</td><td>0.52</td><td>0.18</td><td>0.08</td><td>1.00</td><td>1.00</td></tr>
+                <tr><td>GVP-WM (WAN-0S)</td><td>0.56</td><td>0.12</td><td>0.04</td><td>0.86</td><td>0.76</td></tr>
+                <tr><td>GVP-WM (WAN-FT)</td><td><strong>0.80</strong></td><td><strong>0.30</strong></td><td>0.06</td><td><strong>0.94</strong></td><td><strong>0.90</strong></td></tr>
+                <tr><td>GVP-WM (ORACLE)</td><td><strong>0.98</strong></td><td><strong>0.72</strong></td><td><strong>0.36</strong></td><td><strong>1.00</strong></td><td><strong>1.00</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <br/>
+
+        <h2 class="title is-3">Robustness to Motion Blur</h2>
+        <div class="content">
+          <p class="has-text-centered" style="margin-bottom: 0.5rem;">Table 3. Success Rate under increasing levels of motion blur. MB-k denotes temporal averaging over k consecutive frames.</p>
+          <div style="overflow-x: auto;">
+            <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+              <thead>
+                <tr>
+                  <th rowspan="2">Source</th>
+                  <th rowspan="2">Method</th>
+                  <th colspan="3" class="has-text-centered">PushT</th>
+                  <th colspan="2" class="has-text-centered">Wall</th>
+                </tr>
+                <tr>
+                  <th>T=25</th>
+                  <th>T=50</th>
+                  <th>T=80</th>
+                  <th>T=25</th>
+                  <th>T=50</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td rowspan="2">MB-10</td><td>UniPi</td><td>0.03</td><td>0.00</td><td>0.00</td><td>0.00</td><td>0.02</td></tr>
+                <tr><td>GVP-WM</td><td><strong>0.82</strong></td><td><strong>0.46</strong></td><td><strong>0.08</strong></td><td><strong>0.94</strong></td><td><strong>1.00</strong></td></tr>
+                <tr><td rowspan="2">MB-5</td><td>UniPi</td><td>0.04</td><td>0.00</td><td>0.06</td><td>0.40</td><td>0.52</td></tr>
+                <tr><td>GVP-WM</td><td><strong>0.94</strong></td><td><strong>0.54</strong></td><td><strong>0.16</strong></td><td><strong>1.00</strong></td><td><strong>1.00</strong></td></tr>
+                <tr><td rowspan="2">MB-3</td><td>UniPi</td><td>0.16</td><td>0.00</td><td>0.00</td><td>0.52</td><td>0.82</td></tr>
+                <tr><td>GVP-WM</td><td><strong>0.96</strong></td><td><strong>0.70</strong></td><td><strong>0.34</strong></td><td><strong>1.00</strong></td><td><strong>1.00</strong></td></tr>
+                <tr><td rowspan="2">ORACLE</td><td>UniPi</td><td>0.52</td><td>0.18</td><td>0.08</td><td>1.00</td><td>1.00</td></tr>
+                <tr><td>GVP-WM</td><td><strong>0.98</strong></td><td><strong>0.72</strong></td><td><strong>0.36</strong></td><td><strong>1.00</strong></td><td><strong>1.00</strong></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BibTeX -->
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <!-- TODO: Replace with your BibTeX -->
-    <pre><code>@article{gvpwm2025,
-  author    = {Author One and Author Two},
-  title     = {GVP-WM},
-  journal   = {Conference},
+    <pre><code>@article{ziakas2025gvpwm,
+  author    = {Ziakas, Christos and Bar, Amir and Russo, Alessandra},
+  title     = {Grounding Video Plans with World Models},
   year      = {2025},
 }</code></pre>
   </div>
 </section>
 
-
 <footer class="footer">
   <div class="container">
-    <div class="content has-text-centered">
-      <a class="icon-link" href="https://github.com/chziakas/gvpwm" class="external-link">
-        <i class="fab fa-github"></i>
-      </a>
-    </div>
     <div class="columns is-centered">
       <div class="column is-8">
         <div class="content">
           <p>
-            This website is licensed under a <a rel="license"
-                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
-            Commons Attribution-ShareAlike 4.0 International License</a>.
-          </p>
-          <p>
-            This website template is borrowed from <a
-              href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+            Website template borrowed from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>,
+            licensed under a
+            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
           </p>
         </div>
       </div>
